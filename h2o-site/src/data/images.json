@@ -1,0 +1,584 @@
+{
+ "hero-riverside-deck": {
+  "src": "OPEN SPACE/Riverside Area.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "mill-channel": {
+  "src": "OPEN SPACE/DSC01219.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "cottage-dusk-path": {
+  "src": "OPEN SPACE/DSC01144.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "cottage-dusk-lit": {
+  "src": "OPEN SPACE/Riverside Seating Area/DSC01123.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "lawn-dusk": {
+  "src": "OPEN SPACE/DSC01250.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "lawn-day": {
+  "src": "OPEN SPACE/Open Lawn.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "path-marigolds-dusk": {
+  "src": "OPEN SPACE/DSC01242.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "courtyard-dusk": {
+  "src": "OPEN SPACE/DSC01246.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "thali-on-leaf": {
+  "src": "DINING/DSC00939.jpg",
+  "widths": [
+   800,
+   1400
+  ],
+  "ratio": 1.5
+ },
+ "thali-clay-bowls": {
+  "src": "DINING/DSC00945.jpg",
+  "widths": [
+   800,
+   1400
+  ],
+  "ratio": 1.5
+ },
+ "dining-hall": {
+  "src": "DINING/DSC01201.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "art-craft-session": {
+  "src": "OPEN SPACE/ART & CRAFT/DSC00983.jpg",
+  "widths": [
+   800,
+   1400
+  ],
+  "ratio": 1.4998
+ },
+ "art-studio": {
+  "src": "OPEN SPACE/ART & CRAFT/DSC00977.jpg",
+  "widths": [
+   800,
+   1400
+  ],
+  "ratio": 1.5
+ },
+ "art-wall": {
+  "src": "OPEN SPACE/ART & CRAFT/DSC01004.jpg",
+  "widths": [
+   800,
+   1400
+  ],
+  "ratio": 1.5
+ },
+ "yoga-on-lawn": {
+  "src": "OPEN SPACE/DSC01022.jpg",
+  "widths": [
+   800,
+   1400
+  ],
+  "ratio": 1.5
+ },
+ "riverside-verandah": {
+  "src": "OPEN SPACE/Riverside Seating Area/DSC01040.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-101-01": {
+  "src": "101 Large Double Room/DSC00924.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5002
+ },
+ "room-101-02": {
+  "src": "101 Large Double Room/DSC00926.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-101-03": {
+  "src": "101 Large Double Room/DSC00929.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-101-04": {
+  "src": "101 Large Double Room/DSC00932.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-102-01": {
+  "src": "102 Twin Room/DSC00691.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-102-02": {
+  "src": "102 Twin Room/DSC00700.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-102-03": {
+  "src": "102 Twin Room/DSC00703.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-102-04": {
+  "src": "102 Twin Room/DSC00705.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-102-05": {
+  "src": "102 Twin Room/DSC00711.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-102-06": {
+  "src": "102 Twin Room/DSC00719.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-102-07": {
+  "src": "102 Twin Room/DSC00722.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-102-08": {
+  "src": "102 Twin Room/DSC00726.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-102-09": {
+  "src": "102 Twin Room/DSC00728.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-103-01": {
+  "src": "103 Duplex COTTAGE/DSC00786.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-103-02": {
+  "src": "103 Duplex COTTAGE/DSC00788.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-103-03": {
+  "src": "103 Duplex COTTAGE/DSC00796.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5002
+ },
+ "room-103-04": {
+  "src": "103 Duplex COTTAGE/DSC00801.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.4998
+ },
+ "room-103-05": {
+  "src": "103 Duplex COTTAGE/DSC00803.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5002
+ },
+ "room-103-06": {
+  "src": "103 Duplex COTTAGE/DSC00897.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-103-07": {
+  "src": "103 Duplex COTTAGE/DSC00900.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5002
+ },
+ "room-103-08": {
+  "src": "103 Duplex COTTAGE/DSC00904.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-103-09": {
+  "src": "103 Duplex COTTAGE/DSC00919.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-103-10": {
+  "src": "103 Duplex COTTAGE/DSC01232.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5002
+ },
+ "room-103-11": {
+  "src": "103 Duplex COTTAGE/DSC01234.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-104-01": {
+  "src": "104 FAMILY HALL/DSC00578.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-104-02": {
+  "src": "104 FAMILY HALL/DSC00584.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.4996
+ },
+ "room-104-03": {
+  "src": "104 FAMILY HALL/DSC00588.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-104-04": {
+  "src": "104 FAMILY HALL/DSC00604.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-104-05": {
+  "src": "104 FAMILY HALL/DSC00606.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-104-06": {
+  "src": "104 FAMILY HALL/DSC00618.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-104-07": {
+  "src": "104 FAMILY HALL/DSC00632.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-104-08": {
+  "src": "104 FAMILY HALL/DSC00636.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.4998
+ },
+ "room-104-09": {
+  "src": "104 FAMILY HALL/DSC00637.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.4998
+ },
+ "room-105-01": {
+  "src": "105 RIVERSIDE COTTAGE/DSC00647.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-105-02": {
+  "src": "105 RIVERSIDE COTTAGE/DSC00652.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-105-03": {
+  "src": "105 RIVERSIDE COTTAGE/DSC00658.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-105-04": {
+  "src": "105 RIVERSIDE COTTAGE/DSC00663.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-105-05": {
+  "src": "105 RIVERSIDE COTTAGE/DSC00666.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.5
+ },
+ "room-106-01": {
+  "src": "106 Anandam 1 with attached washroom/IMG-20240911-WA0003.jpg",
+  "widths": [
+   800,
+   1400
+  ],
+  "ratio": 1.7778
+ },
+ "room-106-02": {
+  "src": "106 Anandam 1 with attached washroom/IMG-20240911-WA0006.jpg",
+  "widths": [
+   800,
+   1400
+  ],
+  "ratio": 1.7778
+ },
+ "room-106-03": {
+  "src": "106 Anandam 1 with attached washroom/IMG-20240913-WA0000.jpg",
+  "widths": [
+   800,
+   1400
+  ],
+  "ratio": 1.7778
+ },
+ "room-106-04": {
+  "src": "106 Anandam 1 with attached washroom/IMG-20240913-WA0001.jpg",
+  "widths": [
+   800
+  ],
+  "ratio": 0.5625
+ },
+ "room-106-05": {
+  "src": "106 Anandam 1 with attached washroom/IMG-20240913-WA0002.jpg",
+  "widths": [
+   800,
+   1400
+  ],
+  "ratio": 1.7778
+ },
+ "room-107-01": {
+  "src": "107 Riverside Family Room/IMG-20250102-WA0008.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 0.75
+ },
+ "room-107-02": {
+  "src": "107 Riverside Family Room/IMG-20250102-WA0009.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.3333
+ },
+ "room-107-03": {
+  "src": "107 Riverside Family Room/IMG-20250102-WA0010.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.3333
+ },
+ "room-107-04": {
+  "src": "107 Riverside Family Room/IMG-20250102-WA0011.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 1.3333
+ },
+ "room-107-05": {
+  "src": "107 Riverside Family Room/IMG-20250102-WA0012.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 0.75
+ },
+ "room-107-06": {
+  "src": "107 Riverside Family Room/IMG-20250102-WA0013.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 0.75
+ },
+ "room-107-07": {
+  "src": "107 Riverside Family Room/IMG-20250102-WA0015.jpg",
+  "widths": [
+   800,
+   1400,
+   2000
+  ],
+  "ratio": 0.75
+ }
+}

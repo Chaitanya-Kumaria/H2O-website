@@ -1,0 +1,15 @@
+# Netlify: create the site from this repo with Base directory = h2o-site.
+# (Cloudflare Pages ignores this file: set root directory h2o-site, build `npm run build`, output `dist`.)
+[build]
+  command = "npm run build"
+  publish = "dist"
+  # only rebuild when something in this folder changed (not when Mystic Village or the admin changes)
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- ."
+
+[build.environment]
+  NODE_VERSION = "24"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

@@ -1,0 +1,50 @@
+---
+import Logo from './Logo.astro';
+import type { Settings } from '../lib/types';
+
+interface Props { settings: Settings }
+const { settings } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap inner">
+    <div class="brand">
+      <Logo variant="full" reversed height={150} />
+      <p>{settings.address}<br />{settings.distanceNote}</p>
+    </div>
+    <div class="cols">
+      <div>
+        <p class="label">Stay</p>
+        <ul>
+          <li><a href="/rooms/">H2O House rooms</a></li>
+          <li><a href="/#anandam">H2O Anandam experiences</a></li>
+          <li><a href="/#enquire">Enquire</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="label">Family</p>
+        <ul>
+          <li>A NotOnMap property</li>
+          <li><a href={settings.notOnMapUrl}>NotOnMap</a></li>
+          <li><a href={settings.mysticVillageUrl}>Mystic Village</a>, our community-hosted village stays</li>
+          <li><a href={settings.chaloChambaUrl}>Chalo Chamba</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="wrap small">© {year} H2O House, Chaminoo, Chamba</div>
+</footer>
+
+<style>
+  .site-footer { background: #662924; color: #FAF6EE; padding: var(--space-16) 0 var(--space-6); }
+  .inner { display: grid; gap: var(--space-12); }
+  @media (min-width: 900px) { .inner { grid-template-columns: 1fr 2fr; } }
+  .brand { display: grid; gap: var(--space-6); justify-items: start; }
+  .cols { display: grid; gap: var(--space-8); }
+  @media (min-width: 600px) { .cols { grid-template-columns: 1fr 1fr; } }
+  .label { color: #E0D5C1; margin-bottom: var(--space-3); }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+  a { color: #FAF6EE; }
+  a:focus-visible { outline-color: #FAF6EE; }
+  .small { margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid rgba(250, 246, 238, 0.2); font-size: 14px; color: #E0D5C1; }
+</style>

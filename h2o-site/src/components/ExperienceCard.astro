@@ -1,0 +1,35 @@
+---
+import Photo from './Photo.astro';
+import EnquireButton from './EnquireButton.astro';
+import type { Experience, Settings } from '../lib/types';
+
+interface Props { experience: Experience; settings: Settings }
+const { experience: e, settings } = Astro.props;
+---
+<article class="card glass">
+  <div class="card-photo">
+    <Photo photo={e.image} sizes="(min-width: 900px) 360px, 84vw" maxWidth={1400} />
+  </div>
+  <div class="card-body">
+    {e.enquireOnly && <p><span class="tag">On enquiry</span></p>}
+    <h3 class="subheading">{e.name}</h3>
+    <p class="body-sm muted">{e.summary}</p>
+    <dl class="meta body-sm">
+      <div><dt>Led by</dt><dd>{e.ledBy}</dd></div>
+      <div><dt>Time</dt><dd>{e.duration}</dd></div>
+      <div><dt>Guests</dt><dd>{e.guestLimit}</dd></div>
+    </dl>
+  </div>
+  <div class="card-foot">
+    <p class="price">{e.price}</p>
+    <EnquireButton settings={settings} about={e.name} size="sm" label="Enquire" />
+  </div>
+</article>
+
+<style>
+  .meta { display: grid; gap: var(--space-1); margin: 0; }
+  .meta div { display: flex; gap: var(--space-2); }
+  dt { color: var(--ink-muted); min-width: 4.5em; }
+  dd { margin: 0; }
+  .price { margin: 0; }
+</style>

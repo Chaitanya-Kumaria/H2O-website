@@ -1,0 +1,36 @@
+---
+// A responsive photo, or a clearly marked placeholder when there is no photo yet.
+import { resolve } from '../lib/images';
+import type { Photo } from '../lib/types';
+import Millstone from './Millstone.astro';
+
+interface Props {
+  photo?: Photo;
+  sizes?: string;
+  maxWidth?: number;
+  eager?: boolean;
+  class?: string;
+}
+const { photo, sizes = '100vw', maxWidth = 2000, eager = false, class: className } = Astro.props;
+const r = resolve(photo, maxWidth);
+---
+{r ? (
+  <img
+    class={className}
+    src={r.src}
+    srcset={r.srcset}
+    sizes={sizes}
+    width={r.width}
+    height={r.height}
+    alt={photo?.alt ?? ''}
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : undefined}
+    decoding="async"
+    data-has-people={photo?.hasPeople ? 'consent-needed' : undefined}
+  />
+) : (
+  <div class:list={['placeholder', className]} role="img" aria-label={photo?.placeholder ?? 'Photo to come'}>
+    <Millstone />
+    <span>{photo?.placeholder ?? 'Photo to come'}</span>
+  </div>
+)}

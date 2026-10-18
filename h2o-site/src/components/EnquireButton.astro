@@ -1,0 +1,25 @@
+---
+import { whatsappLink } from '../lib/whatsapp';
+import type { Settings } from '../lib/types';
+
+interface Props {
+  settings: Settings;
+  about?: string;
+  label?: string;
+  size?: 'sm' | 'md';
+  variant?: 'primary' | 'secondary';
+}
+const { settings, about, label = 'Enquire on WhatsApp', size = 'md', variant = 'primary' } = Astro.props;
+---
+<a
+  class:list={['btn', `btn-${variant}`, { 'btn-sm': size === 'sm' }]}
+  href={whatsappLink(settings, about)}
+  target="_blank"
+  rel="noopener"
+  aria-label={about ? `${label} about ${about} (opens WhatsApp)` : `${label} (opens WhatsApp)`}
+>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.1-3.8A8.5 8.5 0 1 1 20 11.5Z" />
+  </svg>
+  {label}
+</a>

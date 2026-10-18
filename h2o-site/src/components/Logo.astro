@@ -1,0 +1,32 @@
+---
+// The H2O logos. Kept in this one component so a refined logo can be swapped in
+// by replacing the files in public/logo/ (same names) or editing this file.
+//   mark / full : H2O House (full includes the "Water Mill Residency · Chamba" line)
+//   anandam     : H2O Anandam, the experiences. Use on light grounds; the maroon H2O is lost on dark.
+interface Props {
+  variant?: 'mark' | 'full' | 'anandam';
+  /** reversed = cream H2O for maroon or dark grounds (House logos only) */
+  reversed?: boolean;
+  height?: number;
+  class?: string;
+}
+const { variant = 'mark', reversed = false, height = 48, class: className } = Astro.props;
+
+const LOGOS = {
+  mark: { file: 'logo-mark', ratio: 591 / 577, alt: 'H2O House, Water Mill Residency, Chamba' },
+  full: { file: 'logo-full', ratio: 591 / 642, alt: 'H2O House, Water Mill Residency, Chamba' },
+  anandam: { file: 'anandam', ratio: 1566 / 821, alt: 'H2O Anandam' },
+};
+const logo = LOGOS[variant];
+const name = `${logo.file}${reversed && variant !== 'anandam' ? '-reversed' : ''}`;
+---
+<picture class={className}>
+  <source srcset={`/logo/${name}.webp`} type="image/webp" />
+  <img
+    src={`/logo/${name}.png`}
+    alt={logo.alt}
+    width={Math.round(height * logo.ratio)}
+    height={height}
+    style={`height:${height}px;width:auto;max-width:100%`}
+  />
+</picture>

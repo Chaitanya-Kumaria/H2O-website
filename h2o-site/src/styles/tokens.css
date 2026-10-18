@@ -1,0 +1,108 @@
+﻿/* H2O Water Mill Residency design tokens.
+   Source of truth: the design system artifact (project/tokens.json).
+   Day is the default theme; Lantern is the house after dark and the dark mode.
+   Glass tokens are the site's glassmorphism layer, built from the same colours. */
+
+:root,
+[data-theme="day"] {
+  color-scheme: light;
+  --surface: #EFE9DD;
+  --surface-raised: #FAF6EE;
+  --surface-plaster: #E0D5C1;
+  --ink: #2B2A26;
+  --ink-muted: #5C5448;
+  --maroon: #662924;
+  --on-maroon: #FAF6EE;
+  --ochre: #D08438;
+  --river: #2E5856;
+  --mustard: #E3B23C;
+  --on-mustard: #2B2A26;
+  --pine: #B98448;
+  --forest: #4F5B33;
+  --jute: #CDB894;
+  --stone: #8E8070;
+  --line: #CBBFA9;
+  --line-strong: #877C6A;
+
+  /* frosted plaster: opaque enough that ink-muted keeps 4.5:1 over dark photos */
+  --glass: rgba(250, 246, 238, 0.72);
+  --glass-strong: rgba(250, 246, 238, 0.9);
+  --glass-edge: rgba(255, 255, 255, 0.6);
+  --glass-line: rgba(43, 42, 38, 0.12);
+  --scrim: linear-gradient(180deg, rgba(28, 26, 22, 0.05) 0%, rgba(28, 26, 22, 0.25) 100%);
+}
+
+[data-theme="lantern"] {
+  color-scheme: dark;
+  --surface: #1C1A16;
+  --surface-raised: #27231D;
+  --surface-plaster: #332C23;
+  --ink: #EFE7D8;
+  --ink-muted: #BDB29F;
+  --maroon: #9A4038;
+  --ochre: #D9934C;
+  --river: #8DBDB7;
+  --mustard: #E6BA4E;
+  --pine: #C9965C;
+  --forest: #A3B17A;
+  --jute: #5A4E3C;
+  --stone: #6E6355;
+  --line: #4A4236;
+  --line-strong: #8A7F6C;
+
+  /* smoked lantern glass */
+  --glass: rgba(28, 26, 22, 0.6);
+  --glass-strong: rgba(28, 26, 22, 0.86);
+  --glass-edge: rgba(239, 231, 216, 0.18);
+  --glass-line: rgba(239, 231, 216, 0.14);
+  --scrim: linear-gradient(180deg, rgba(28, 26, 22, 0.15) 0%, rgba(28, 26, 22, 0.55) 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="day"]) {
+    color-scheme: dark;
+    --surface: #1C1A16;
+    --surface-raised: #27231D;
+    --surface-plaster: #332C23;
+    --ink: #EFE7D8;
+    --ink-muted: #BDB29F;
+    --maroon: #9A4038;
+    --ochre: #D9934C;
+    --river: #8DBDB7;
+    --mustard: #E6BA4E;
+    --pine: #C9965C;
+    --forest: #A3B17A;
+    --jute: #5A4E3C;
+    --stone: #6E6355;
+    --line: #4A4236;
+    --line-strong: #8A7F6C;
+    --glass: rgba(28, 26, 22, 0.6);
+    --glass-strong: rgba(28, 26, 22, 0.86);
+    --glass-edge: rgba(239, 231, 216, 0.18);
+    --glass-line: rgba(239, 231, 216, 0.14);
+    --scrim: linear-gradient(180deg, rgba(28, 26, 22, 0.15) 0%, rgba(28, 26, 22, 0.55) 100%);
+  }
+}
+
+:root {
+  --font-display: "Young Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Work Sans", "Segoe UI", system-ui, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-round: 999px;
+
+  --blur: 24px;
+  --measure: 65ch;
+  --page-max: 1200px;
+}

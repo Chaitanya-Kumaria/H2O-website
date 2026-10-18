@@ -1,0 +1,248 @@
+---
+// Home page. All words and photos here come from the admin (Home page + Site settings),
+// or from src/data/seed.ts until the admin is connected.
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import Logo from '../components/Logo.astro';
+import RoomCard from '../components/RoomCard.astro';
+import ExperienceCard from '../components/ExperienceCard.astro';
+import EnquireButton from '../components/EnquireButton.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import WaterLine from '../components/WaterLine.astro';
+import Millstone from '../components/Millstone.astro';
+import { getAwards, getExperiences, getHome, getPeople, getRooms, getSettings, getTestimonials } from '../lib/content';
+
+const [settings, home, rooms, experiences, people, testimonials, awards] = await Promise.all([
+  getSettings(), getHome(), getRooms(), getExperiences(), getPeople(), getTestimonials(), getAwards(),
+]);
+const featuredRooms = rooms.filter((r) => r.featured);
+const { story, rooms: roomsText, kitchen, people: peopleText, anandam, voices, chamba, enquire } = home;
+
+// "Chalo Chamba" inside the sentence becomes the link
+const [ccBefore, ccAfter] = settings.chaloChambaText.includes('Chalo Chamba')
+  ? settings.chaloChambaText.split(/Chalo Chamba(.*)/s)
+  : [settings.chaloChambaText, null];
+---
+<Base>
+  <!-- 1. Hero -->
+  <section class="hero" data-theme="lantern">
+    <div class="bg-photo">
+      <Photo photo={home.heroImage} eager />
+    </div>
+    <div class="wrap">
+      <div class="hero-panel glass pad pad-lg">
+        <p class="label">Chaminoo · Chamba · Himachal Pradesh</p>
+        <h1 class="display-xl">{settings.heroLine}</h1>
+        <p class="subheading">{settings.promise}</p>
+        <div class="actions">
+          <EnquireButton settings={settings} />
+          <a class="btn btn-secondary" href="#story">Read the story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. The story in one scroll -->
+  <section id="story" class="section photo-band" data-theme="lantern">
+    <div class="bg-photo">
+      <Photo photo={story.image} />
+    </div>
+    <div class="wrap">
+      <div class="glass pad pad-lg story-panel">
+        {story.label && <p class="label">{story.label}</p>}
+        <h2 class="display">{story.heading}</h2>
+        <WaterLine />
+        {story.body.map((p) => <p>{p}</p>)}
+        <ul class="facts">
+          <li>{settings.distanceNote}</li>
+          <li>On the Saal river</li>
+          <li>Chaminoo village</li>
+        </ul>
+      </div>
+      {story.caption && <p class="caption body-sm">{story.caption}</p>}
+    </div>
+  </section>
+
+  <!-- 3. Rooms -->
+  <section id="rooms" class="section" data-theme="lantern">
+    <div class="bg-photo soft">
+      <Photo photo={roomsText.image} sizes="50vw" maxWidth={800} />
+    </div>
+    <div class="wrap">
+      <div class="section-head">
+        {roomsText.label && <p class="label">{roomsText.label}</p>}
+        <h2 class="display">{roomsText.heading}</h2>
+        {roomsText.body.map((p) => <p class="muted">{p}</p>)}
+        <p class="muted">{settings.pricesNote}</p>
+      </div>
+      <div class="rail">
+        {featuredRooms.map((room) => <RoomCard room={room} settings={settings} />)}
+      </div>
+      {rooms.length > featuredRooms.length && (
+        <p class="more"><a class="btn btn-secondary" href="/rooms/">See all {rooms.length} rooms</a></p>
+      )}
+    </div>
+  </section>
+
+  <!-- 4. Community kitchen and the people who run H2O -->
+  <section id="kitchen" class="section">
+    <div class="bg-photo">
+      <Photo photo={peopleText.image} sizes="50vw" maxWidth={1400} />
+    </div>
+    <div class="wrap stack-lg">
+      <div class="grid-2 glass pad pad-lg">
+        <div class="stack">
+          {kitchen.label && <p class="label">{kitchen.label}</p>}
+          <h2 class="display">{kitchen.heading}</h2>
+          {kitchen.body.map((p) => <p>{p}</p>)}
+        </div>
+        <Photo class="framed" photo={kitchen.image} sizes="(min-width: 900px) 520px, 92vw" maxWidth={1400} />
+      </div>
+
+      {people.length > 0 && (
+        <div>
+          <div class="section-head on-photo glass pad">
+            {peopleText.label && <p class="label">{peopleText.label}</p>}
+            <h2 class="heading">{peopleText.heading}</h2>
+            {peopleText.body.map((p) => <p class="muted">{p}</p>)}
+          </div>
+          <div class="people">
+            {people.map((p) => (
+              <figure class="person glass pad">
+                <div class="portrait">
+                  {p.portrait ? <Photo photo={p.portrait} sizes="96px" maxWidth={800} /> : <Millstone />}
+                </div>
+                {p.quote && <blockquote class="quote">{p.quote}</blockquote>}
+                <figcaption><strong>{p.name}</strong><br /><span class="muted body-sm">{p.role}</span></figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- 5. H2O Anandam: experiences -->
+  <section id="anandam" class="section" data-theme="lantern">
+    <div class="bg-photo">
+      <Photo photo={anandam.image} sizes="50vw" maxWidth={1400} />
+    </div>
+    <div class="wrap">
+      <!-- the Anandam logo's maroon needs a light ground -->
+      <div class="section-head on-photo glass pad anandam-head" data-theme="day">
+        <Logo variant="anandam" height={128} />
+        <h2 class="display">{anandam.heading}</h2>
+        {anandam.body.map((p) => <p class="muted">{p}</p>)}
+      </div>
+      <div class="rail">
+        {experiences.map((e) => <ExperienceCard experience={e} settings={settings} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Recognition and guest voices -->
+  {(awards.length > 0 || testimonials.length > 0) && (
+    <section id="voices" class="section">
+      <div class="bg-photo">
+        <Photo photo={voices.image} sizes="50vw" maxWidth={1400} />
+      </div>
+      <div class="wrap">
+        <div class="section-head on-photo glass pad">
+          {voices.label && <p class="label">{voices.label}</p>}
+          <h2 class="display">{voices.heading}</h2>
+          {voices.body.map((p) => <p class="muted">{p}</p>)}
+        </div>
+        {awards.length > 0 && (
+          <ul class="awards glass pad">
+            {awards.map((a) => <li><strong>{a.name}</strong> <span class="muted">{a.givenBy}, {a.year}</span></li>)}
+          </ul>
+        )}
+        <div class="rail">
+          {testimonials.map((t) => (
+            <figure class="voice glass pad">
+              <blockquote class="quote">{t.quote}</blockquote>
+              <figcaption class="body-sm"><strong>{t.guestName}</strong>{t.from && `, ${t.from}`}{t.source && <span class="muted"> · {t.source}</span>}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 7. Why Chamba + Chalo Chamba -->
+  <section id="chamba" class="section plaster">
+    <div class="wrap grid-2">
+      <div class="stack">
+        {chamba.label && <p class="label">{chamba.label}</p>}
+        <h2 class="display">{chamba.heading}</h2>
+        <WaterLine />
+      </div>
+      <div class="stack">
+        {chamba.body.map((p) => <p>{p}</p>)}
+        <p>
+          {ccBefore}{ccAfter !== null && <><a href={settings.chaloChambaUrl}>Chalo Chamba</a>{ccAfter}</>}{' '}
+          {settings.distanceNote}.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Enquire -->
+  <section id="enquire" class="section" data-theme="lantern">
+    <div class="bg-photo">
+      <Photo photo={enquire.image} sizes="50vw" maxWidth={1400} />
+    </div>
+    <div class="wrap">
+      <div class="enquire glass pad pad-lg">
+        <div class="stack">
+          {enquire.label && <p class="label">{enquire.label}</p>}
+          <h2 class="display">{enquire.heading}</h2>
+          {enquire.body.map((p) => <p class="muted">{p}</p>)}
+        </div>
+        <EnquiryForm settings={settings} rooms={rooms} />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    position: relative; isolation: isolate; min-height: 100svh;
+    display: flex; align-items: flex-end; padding: 120px 0 var(--space-6);
+  }
+  .hero-panel { display: grid; gap: var(--space-4); max-width: 40rem; }
+  @media (min-width: 720px) { .hero { padding-bottom: var(--space-16); } }
+
+  /* on phones, let the photo show above the panel */
+  .photo-band { padding-top: 48svh; }
+  @media (min-width: 960px) { .photo-band { padding-top: var(--space-24); } }
+  .story-panel { max-width: 40rem; display: grid; gap: var(--space-4); }
+  .caption { margin-top: var(--space-3); color: #EFE7D8; text-shadow: 0 1px 2px rgba(0, 0, 0, .6); }
+
+  .soft :global(img) { filter: blur(6px); transform: scale(1.06); }
+  .on-photo { max-width: 44rem; }
+  .anandam-head { color: var(--ink); }
+  .anandam-head :global(picture) { margin-bottom: var(--space-2); }
+  .more { margin-top: var(--space-6); max-width: none; }
+
+  .stack-lg { display: grid; gap: var(--space-12); }
+  :global(.framed) { border-radius: var(--radius-md); aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+
+  .people { display: grid; gap: var(--space-4); }
+  @media (min-width: 720px) { .people { grid-template-columns: repeat(3, 1fr); gap: var(--space-6); } }
+  .person { margin: 0; display: grid; gap: var(--space-4); align-content: start; }
+  .portrait {
+    width: 96px; height: 96px; border-radius: var(--radius-round); overflow: hidden;
+    background: var(--jute); color: var(--river); display: grid; place-items: center;
+  }
+  .portrait :global(svg) { width: 56px; height: 56px; }
+  .portrait :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  blockquote { margin: 0; }
+
+  .awards { list-style: none; margin: 0 0 var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); }
+  .voice { margin: 0; display: grid; gap: var(--space-4); align-content: space-between; }
+
+  .enquire { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); }
+  .enquire > .stack { align-content: start; }
+  @media (min-width: 900px) { .enquire { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-12); } }
+</style>

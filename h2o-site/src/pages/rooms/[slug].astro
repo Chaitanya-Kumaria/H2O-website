@@ -1,0 +1,113 @@
+---
+// One page per room: story first, then view, capacity, price, house rules, photos.
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import EnquireButton from '../../components/EnquireButton.astro';
+import EnquiryForm from '../../components/EnquiryForm.astro';
+import WaterLine from '../../components/WaterLine.astro';
+import { getRooms, getSettings } from '../../lib/content';
+import { resolve } from '../../lib/images';
+import type { Room } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const rooms = await getRooms();
+  return rooms.map((room) => ({ params: { slug: room.slug }, props: { room } }));
+}
+
+const { room } = Astro.props as { room: Room };
+const [settings, rooms] = await Promise.all([getSettings(), getRooms()]);
+const about = `the ${room.name} (Room ${room.number})`;
+const i = rooms.findIndex((r) => r.slug === room.slug);
+const next = rooms[(i + 1) % rooms.length];
+---
+<Base title={room.name} description={`${room.name} at H2O House, Chamba. ${room.tagline}.`} image={resolve(room.image, 1400)?.src}>
+  <section class="room-hero" data-theme="lantern">
+    <div class="bg-photo">
+      <Photo photo={room.image} eager />
+    </div>
+    <div class="wrap">
+      <div class="glass pad pad-lg panel">
+        <p class="label"><a href="/rooms/">H2O House</a> · Room {room.number}</p>
+        <h1 class="display">{room.name}</h1>
+        <p class="subheading">{room.tagline}</p>
+        <div class="actions"><EnquireButton settings={settings} about={about} /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap layout">
+      <div class="stack">
+        <p class="label">The story of this room</p>
+        <WaterLine />
+        {room.story.map((p) => <p class="lead">{p}</p>)}
+      </div>
+      <aside class="glass glass-strong pad details">
+        <dl>
+          <div><dt class="label">View</dt><dd>{room.view}</dd></div>
+          <div><dt class="label">Sleeps</dt><dd>{room.sleeps}</dd></div>
+          <div><dt class="label">Beds</dt><dd>{room.beds}</dd></div>
+          <div><dt class="label">Price</dt><dd><span class="price">From {room.priceFrom}</span> <span class="muted">{room.priceUnit}</span></dd></div>
+        </dl>
+        <p class="body-sm muted">{settings.pricesNote}</p>
+        {room.amenities.length > 0 && (
+          <div><p class="label">In the room</p><ul class="body-sm">{room.amenities.map((a) => <li>{a}</li>)}</ul></div>
+        )}
+        <div><p class="label">House rules</p><ul class="body-sm">{room.rules.map((r) => <li>{r}</li>)}</ul></div>
+        <EnquireButton settings={settings} about={about} />
+      </aside>
+    </div>
+  </section>
+
+  {room.gallery.length > 0 && (
+    <section class="section plaster" aria-label="Photos">
+      <div class="wrap">
+        <div class="gallery">
+          {room.gallery.map((p) => (
+            <Photo photo={p} sizes="(min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw" maxWidth={1400} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section" data-theme="lantern">
+    <div class="bg-photo">
+      <Photo photo={{ local: 'courtyard-dusk', alt: '' }} sizes="50vw" maxWidth={1400} />
+    </div>
+    <div class="wrap">
+      <div class="glass pad pad-lg enquire">
+        <div class="stack">
+          <p class="label">Enquire</p>
+          <h2 class="display">Stay in the {room.name}</h2>
+          <p class="muted">We reply on WhatsApp and confirm dates and the price.</p>
+          {next && next.slug !== room.slug && <p><a href={`/rooms/${next.slug}/`}>Next room: {next.name}</a></p>}
+        </div>
+        <EnquiryForm settings={settings} rooms={rooms} selected={room.slug} />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .room-hero { position: relative; isolation: isolate; min-height: 88svh; display: flex; align-items: flex-end; padding: 120px 0 var(--space-6); }
+  @media (min-width: 720px) { .room-hero { padding-bottom: var(--space-12); } }
+  .panel { max-width: 38rem; display: grid; gap: var(--space-4); }
+  .panel a { color: inherit; }
+  .layout { display: grid; gap: var(--space-12); }
+  @media (min-width: 900px) { .layout { grid-template-columns: 1.4fr 1fr; align-items: start; } }
+  .lead { font-size: 19px; line-height: 30px; }
+  .details { display: grid; gap: var(--space-6); position: sticky; top: 96px; }
+  dl { margin: 0; display: grid; gap: var(--space-4); }
+  dl div { display: grid; gap: var(--space-1); border-bottom: 1px solid var(--line); padding-bottom: var(--space-3); }
+  dd { margin: 0; }
+  ul { margin: var(--space-2) 0 0; padding-left: 1.2em; }
+  .gallery { display: grid; gap: var(--space-3); }
+  @media (min-width: 600px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 900px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
+  .gallery :global(img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-sm); }
+  .enquire { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); }
+  .enquire > .stack { align-content: start; }
+  .layout > * { min-width: 0; }
+  @media (min-width: 900px) { .enquire { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-12); } }
+</style>

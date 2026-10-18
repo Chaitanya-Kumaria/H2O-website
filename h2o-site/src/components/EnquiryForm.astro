@@ -1,0 +1,78 @@
+---
+// Builds a prefilled WhatsApp message. Nothing is sent to a server.
+import { whatsappLink } from '../lib/whatsapp';
+import type { Room, Settings } from '../lib/types';
+
+interface Props { settings: Settings; rooms: Room[]; selected?: string }
+const { settings, rooms, selected } = Astro.props;
+const number = settings.whatsappNumber.replace(/\D/g, '');
+---
+<noscript><p><a class="btn btn-primary" href={whatsappLink(settings)} target="_blank" rel="noopener">Enquire on WhatsApp</a></p></noscript>
+<form class="enquiry" data-number={number} data-greeting={settings.whatsappGreeting}>
+  <label>
+    <span class="label">Room</span>
+    <select name="room">
+      <option value="">Not sure yet</option>
+      {rooms.map((r) => (
+        <option value={`the ${r.name} (Room ${r.number})`} selected={selected === r.slug}>{r.name}</option>
+      ))}
+    </select>
+  </label>
+  <div class="row">
+    <label><span class="label">Arriving</span><input type="date" name="from" /></label>
+    <label><span class="label">Leaving</span><input type="date" name="to" /></label>
+  </div>
+  <div class="row">
+    <label><span class="label">Adults</span><input type="number" name="adults" min="1" max="30" value="2" inputmode="numeric" /></label>
+    <label><span class="label">Children</span><input type="number" name="children" min="0" max="30" value="0" inputmode="numeric" /></label>
+  </div>
+  <label>
+    <span class="label">Anything else</span>
+    <textarea name="note" rows="3" placeholder="Experiences you are interested in, how you are travelling, questions"></textarea>
+  </label>
+  <button class="btn btn-primary" type="submit">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.1-3.8A8.5 8.5 0 1 1 20 11.5Z" />
+    </svg>
+    Enquire on WhatsApp
+  </button>
+  <p class="body-sm muted">This opens WhatsApp with your message ready to send. You can change it before sending.</p>
+</form>
+
+<script>
+  const fmt = (v: string) =>
+    v ? new Date(v + 'T00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : 'not decided';
+
+  document.querySelectorAll<HTMLFormElement>('form.enquiry').forEach((form) => {
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const d = new FormData(form);
+      const room = String(d.get('room') || '');
+      const lines = [
+        `${form.dataset.greeting} I would like to enquire about ${room || 'a stay'}.`,
+        '',
+        `Arriving: ${fmt(String(d.get('from') || ''))}`,
+        `Leaving: ${fmt(String(d.get('to') || ''))}`,
+        `Guests: ${d.get('adults') || 0} adults, ${d.get('children') || 0} children`,
+      ];
+      const note = String(d.get('note') || '').trim();
+      if (note) lines.push('', note);
+      const url = `https://wa.me/${form.dataset.number}?text=${encodeURIComponent(lines.join('\n'))}`;
+      window.open(url, '_blank', 'noopener');
+    });
+  });
+</script>
+
+<style>
+  .enquiry { display: grid; gap: var(--space-4); align-content: start; }
+  label { display: grid; gap: var(--space-1); }
+  .enquiry, label { min-width: 0; }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-3); }
+  input, select, textarea {
+    width: 100%; min-width: 0; min-height: 48px; padding: 10px 12px;
+    font: 400 16px/24px var(--font-body); color: var(--ink);
+    background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: var(--radius-sm);
+  }
+  textarea { resize: vertical; }
+  .btn { justify-self: start; }
+</style>

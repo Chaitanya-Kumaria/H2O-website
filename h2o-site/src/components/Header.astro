@@ -1,0 +1,84 @@
+---
+import Logo from './Logo.astro';
+import EnquireButton from './EnquireButton.astro';
+import type { Settings } from '../lib/types';
+
+interface Props { settings: Settings }
+const { settings } = Astro.props;
+
+const links = [
+  { href: '/#story', label: 'The story' },
+  { href: '/rooms/', label: 'H2O House' },
+  { href: '/#anandam', label: 'H2O Anandam' },
+  { href: '/#chamba', label: 'Chamba' },
+];
+---
+<header class="site-header" data-theme="lantern">
+  <div class="bar glass">
+    <a class="home" href="/" aria-label="H2O House home">
+      <Logo reversed height={44} />
+    </a>
+    <nav aria-label="Main">
+      <ul class="links">
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="cta"><EnquireButton settings={settings} size="sm" label="Enquire" /></div>
+    <button class="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-sheet">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+    </button>
+    <div id="menu-sheet" class="sheet glass glass-strong" hidden>
+      <ul>
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+      <EnquireButton settings={settings} />
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.site-header .menu');
+  const sheet = document.getElementById('menu-sheet');
+  if (btn && sheet) {
+    const set = (open: boolean) => { sheet.hidden = !open; btn.setAttribute('aria-expanded', String(open)); };
+    btn.addEventListener('click', () => set(sheet.hidden));
+    sheet.addEventListener('click', (e) => { if ((e.target as Element).closest('a')) set(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: fixed; inset: var(--space-3) var(--space-3) auto; z-index: 50;
+    color: var(--ink);
+  }
+  .bar {
+    display: flex; align-items: center; gap: var(--space-6);
+    max-width: var(--page-max); margin: 0 auto; padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4);
+  }
+  .home { display: block; line-height: 0; }
+  nav { margin-left: auto; }
+  .links { display: none; gap: var(--space-6); list-style: none; margin: 0; padding: 0; }
+  .links a, .sheet a { color: var(--ink); text-decoration: none; font: 500 15px/20px var(--font-body); }
+  .links a:hover { color: var(--mustard); }
+  .cta { display: none; }
+  .bar { position: relative; }
+  .menu {
+    margin-left: auto; cursor: pointer; display: grid; place-items: center;
+    width: 48px; height: 48px; padding: 0; color: var(--ink); background: transparent;
+    border-radius: var(--radius-md); border: 1px solid var(--glass-line);
+  }
+  .menu svg { width: 24px; height: 24px; }
+  .sheet[hidden] { display: none; }
+  .sheet {
+    position: absolute; top: calc(100% + var(--space-2)); left: 0; right: 0;
+    padding: var(--space-6); display: grid; gap: var(--space-6);
+  }
+  .sheet ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+  .sheet a { font-size: 19px; line-height: 28px; }
+  @media (min-width: 960px) {
+    .links { display: flex; }
+    .cta { display: block; }
+    .menu, .sheet { display: none; }
+  }
+</style>

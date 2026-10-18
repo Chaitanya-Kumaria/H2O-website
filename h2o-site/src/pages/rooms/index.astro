@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import RoomCard from '../../components/RoomCard.astro';
+import { getRooms, getSettings } from '../../lib/content';
+
+const [settings, rooms] = await Promise.all([getSettings(), getRooms()]);
+---
+<Base title="H2O House rooms" description="Rooms at H2O House, built of mud plaster, pine and old timber beside the Saal river near Chamba.">
+  <section class="section rooms-page" data-theme="lantern">
+    <div class="bg-photo">
+      <Photo photo={{ local: 'cottage-dusk-lit', alt: '' }} eager sizes="100vw" />
+    </div>
+    <div class="wrap">
+      <div class="section-head glass pad pad-lg">
+        <p class="label">H2O House</p>
+        <h1 class="display">Rooms above the sound of water</h1>
+        <p class="muted">{rooms.length} rooms and cottages, each with its own story. {settings.pricesNote}</p>
+      </div>
+      <div class="grid">
+        {rooms.map((room) => <RoomCard room={room} settings={settings} />)}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .rooms-page { padding-top: 140px; min-height: 100svh; }
+  .grid { display: grid; gap: var(--space-6); }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+</style>

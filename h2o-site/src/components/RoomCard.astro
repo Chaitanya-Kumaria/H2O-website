@@ -1,0 +1,36 @@
+---
+import Photo from './Photo.astro';
+import EnquireButton from './EnquireButton.astro';
+import type { Room, Settings } from '../lib/types';
+
+interface Props { room: Room; settings: Settings }
+const { room, settings } = Astro.props;
+const href = `/rooms/${room.slug}/`;
+---
+<article class="card glass">
+  <a class="card-photo" href={href} tabindex="-1" aria-hidden="true">
+    <Photo photo={room.image} sizes="(min-width: 900px) 360px, 84vw" maxWidth={1400} />
+  </a>
+  <div class="card-body">
+    <p class="label">Room {room.number}</p>
+    <h3 class="heading"><a class="title" href={href}>{room.name}</a></h3>
+    <p class="body-sm muted">{room.tagline}</p>
+    <ul class="facts">
+      <li>Sleeps {room.sleeps}</li>
+      <li>View {room.view}</li>
+    </ul>
+  </div>
+  <div class="card-foot">
+    <p class="price">From {room.priceFrom} <small>{room.priceUnit}</small></p>
+    <EnquireButton settings={settings} about={`the ${room.name} (Room ${room.number})`} size="sm" label="Enquire" />
+  </div>
+</article>
+
+<style>
+  .title { color: var(--ink); text-decoration: none; }
+  .title:hover { text-decoration: underline; text-decoration-color: var(--river); }
+  .title::after { content: ""; position: absolute; inset: 0; }   /* whole card is the link */
+  .card { position: relative; }
+  .card-foot :global(.btn) { position: relative; z-index: 1; }
+  .price { margin: 0; }
+</style>
