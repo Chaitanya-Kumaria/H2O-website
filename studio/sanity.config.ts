@@ -3,7 +3,7 @@ import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './schemaTypes';
 
 // Fill in after `npx sanity init` (logged in with the H2O / NotOnMap account).
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'REPLACE_ME';
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'm47df98v';
 
 export default defineConfig({
   name: 'h2o',
