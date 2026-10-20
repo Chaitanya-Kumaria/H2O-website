@@ -77,6 +77,19 @@ export const award = defineType({
   fields: [...listControls, text('name', 'Exact name of the award'), text('givenBy', 'Given by'), text('year', 'Year')],
 });
 
+export const placeGroup = defineType({
+  name: 'placeGroup', title: 'Nearby places', type: 'document',
+  description: 'A list of places to visit, e.g. temples around Bharmour.',
+  fields: [
+    ...listControls,
+    sites,
+    text('area', 'Area', 'e.g. Bharmour'),
+    text('kind', 'Kind of place', 'e.g. Temples and sacred places'),
+    defineField({ name: 'places', title: 'Places', type: 'array', of: [{ type: 'string' }], description: 'One box per place.' }),
+  ],
+  preview: { select: { area: 'area', kind: 'kind' }, prepare: ({ area, kind }) => ({ title: area, subtitle: kind }) },
+});
+
 export const settings = defineType({
   name: 'settings', title: 'Site settings', type: 'document',
   fields: [
@@ -85,8 +98,10 @@ export const settings = defineType({
     text('heroLine', 'Home page headline'),
     defineField({ name: 'promise', title: 'One-line promise under the headline', type: 'text', rows: 2 }),
     defineField({ name: 'pricesNote', title: 'Note about prices', type: 'text', rows: 2 }),
+    text('phone', 'Phone number, as shown on the site', 'e.g. 98162 20009'),
+    defineField({ name: 'email', title: 'Email', type: 'string' }),
     text('address', 'Address'),
-    text('distanceNote', 'Distance line', 'e.g. About 8.6 km from Chamba town'),
+    text('distanceNote', 'Distance line', 'e.g. About 12 km from Chamba town'),
     defineField({ name: 'chaloChambaUrl', title: 'Chalo Chamba link', type: 'url' }),
     defineField({ name: 'chaloChambaText', title: 'Sentence about Chalo Chamba', type: 'text', rows: 2, description: 'The words "Chalo Chamba" in it become the link.' }),
     defineField({ name: 'notOnMapUrl', title: 'NotOnMap link', type: 'url' }),
@@ -127,4 +142,4 @@ export const homePage = defineType({
   preview: { prepare: () => ({ title: 'Home page' }) },
 });
 
-export const schemaTypes = [homePage, homeSection, room, experience, person, testimonial, award, settings];
+export const schemaTypes = [homePage, homeSection, room, experience, person, testimonial, award, placeGroup, settings];

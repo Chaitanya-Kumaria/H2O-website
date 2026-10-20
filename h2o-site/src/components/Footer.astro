@@ -11,6 +11,12 @@ const year = new Date().getFullYear();
     <div class="brand">
       <Logo variant="full" reversed height={150} />
       <p>{settings.address}<br />{settings.distanceNote}</p>
+      {(settings.phone || settings.email) && (
+        <p>
+          {settings.phone && <>Phone {settings.phone}<br /></>}
+          {settings.email && <a href={`mailto:${settings.email}`}>{settings.email}</a>}
+        </p>
+      )}
     </div>
     <div class="cols">
       <div>

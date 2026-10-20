@@ -30,12 +30,13 @@ const number = settings.whatsappNumber.replace(/\D/g, '');
     <span class="label">Anything else</span>
     <textarea name="note" rows="3" placeholder="Experiences you are interested in, how you are travelling, questions"></textarea>
   </label>
-  <button class="btn btn-primary" type="submit">
+  <!-- A real link, kept up to date as the guest types: works where pop-ups are blocked. -->
+  <a class="btn btn-primary send" href={whatsappLink(settings)} target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.1-3.8A8.5 8.5 0 1 1 20 11.5Z" />
     </svg>
     Enquire on WhatsApp
-  </button>
+  </a>
   <p class="body-sm muted">This opens WhatsApp with your message ready to send. You can change it before sending.</p>
 </form>
 
@@ -44,8 +45,9 @@ const number = settings.whatsappNumber.replace(/\D/g, '');
     v ? new Date(v + 'T00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : 'not decided';
 
   document.querySelectorAll<HTMLFormElement>('form.enquiry').forEach((form) => {
-    form.addEventListener('submit', (ev) => {
-      ev.preventDefault();
+    const link = form.querySelector<HTMLAnchorElement>('a.send');
+    if (!link) return;
+    const update = () => {
       const d = new FormData(form);
       const room = String(d.get('room') || '');
       const lines = [
@@ -57,9 +59,12 @@ const number = settings.whatsappNumber.replace(/\D/g, '');
       ];
       const note = String(d.get('note') || '').trim();
       if (note) lines.push('', note);
-      const url = `https://wa.me/${form.dataset.number}?text=${encodeURIComponent(lines.join('\n'))}`;
-      window.open(url, '_blank', 'noopener');
-    });
+      link.href = `https://wa.me/${form.dataset.number}?text=${encodeURIComponent(lines.join('\n'))}`;
+    };
+    form.addEventListener('input', update);
+    form.addEventListener('change', update);
+    form.addEventListener('submit', (ev) => { ev.preventDefault(); update(); link.click(); });
+    update();
   });
 </script>
 

@@ -68,6 +68,7 @@ for (const e of seed.experiences) {
 seed.people.forEach((p, i) => docs.push({ _id: `person-h2o-${i + 1}`, _type: 'person', sites: ['h2o'], ...p }));
 seed.testimonials.forEach((t, i) => docs.push({ _id: `testimonial-h2o-${i + 1}`, _type: 'testimonial', sites: ['h2o'], ...t }));
 seed.awards.forEach((a, i) => docs.push({ _id: `award-h2o-${i + 1}`, _type: 'award', ...a }));
+seed.places.forEach((p, i) => docs.push({ _id: `places-h2o-${i + 1}`, _type: 'placeGroup', sites: ['h2o'], ...p }));
 
 const out = path.join(root, '..', 'studio', 'seed.ndjson');
 writeFileSync(out, docs.map((d) => JSON.stringify(d)).join('\n') + '\n');

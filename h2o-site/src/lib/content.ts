@@ -4,7 +4,7 @@
 
 import { createClient, type SanityClient } from '@sanity/client';
 import * as seed from '../data/seed';
-import type { Award, Experience, HomePage, Person, Room, Settings, Testimonial } from './types';
+import type { Award, Experience, HomePage, Person, PlaceGroup, Room, Settings, Testimonial } from './types';
 
 const projectId = import.meta.env.SANITY_PROJECT_ID;
 const dataset = import.meta.env.SANITY_DATASET || 'production';
@@ -66,4 +66,9 @@ export async function getTestimonials(): Promise<Testimonial[]> {
 export async function getAwards(): Promise<Award[]> {
   if (!sanity) return listed(seed.awards);
   return sanity.fetch(LIST('award', '...'));
+}
+
+export async function getPlaces(): Promise<PlaceGroup[]> {
+  if (!sanity) return listed(seed.places);
+  return sanity.fetch(LIST('placeGroup', '..., "places": coalesce(places, [])', '&& "h2o" in sites'));
 }

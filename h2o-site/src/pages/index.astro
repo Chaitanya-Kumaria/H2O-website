@@ -10,11 +10,13 @@ import EnquireButton from '../components/EnquireButton.astro';
 import EnquiryForm from '../components/EnquiryForm.astro';
 import WaterLine from '../components/WaterLine.astro';
 import Millstone from '../components/Millstone.astro';
-import { getAwards, getExperiences, getHome, getPeople, getRooms, getSettings, getTestimonials } from '../lib/content';
+import { getAwards, getExperiences, getHome, getPeople, getPlaces, getRooms, getSettings, getTestimonials } from '../lib/content';
 
-const [settings, home, rooms, experiences, people, testimonials, awards] = await Promise.all([
-  getSettings(), getHome(), getRooms(), getExperiences(), getPeople(), getTestimonials(), getAwards(),
+const [settings, home, rooms, experiences, people, testimonials, awards, places] = await Promise.all([
+  getSettings(), getHome(), getRooms(), getExperiences(), getPeople(), getTestimonials(), getAwards(), getPlaces(),
 ]);
+// nearby places, grouped by area in display order
+const areas = [...new Set(places.map((p) => p.area))].map((area) => ({ area, groups: places.filter((p) => p.area === area) }));
 const featuredRooms = rooms.filter((r) => r.featured);
 const { story, rooms: roomsText, kitchen, people: peopleText, anandam, voices, chamba, enquire } = home;
 
@@ -55,7 +57,7 @@ const [ccBefore, ccAfter] = settings.chaloChambaText.includes('Chalo Chamba')
         {story.body.map((p) => <p>{p}</p>)}
         <ul class="facts">
           <li>{settings.distanceNote}</li>
-          <li>On the Saal river</li>
+          <li>Where the Saal meets the Hul Nala</li>
           <li>Chaminoo village</li>
         </ul>
       </div>
@@ -185,6 +187,24 @@ const [ccBefore, ccAfter] = settings.chaloChambaText.includes('Chalo Chamba')
         </p>
       </div>
     </div>
+    {areas.length > 0 && (
+      <div class="wrap places">
+        <h3 class="heading">Places to visit from H2O</h3>
+        <div class="areas">
+          {areas.map(({ area, groups }) => (
+            <div class="area">
+              <p class="label">{area}</p>
+              {groups.map((g) => (
+                <div>
+                  <p class="kind body-sm">{g.kind}</p>
+                  <ul class="body-sm">{g.places.map((pl) => <li>{pl}</li>)}</ul>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
   </section>
 
   <!-- 8. Enquire -->
@@ -198,6 +218,13 @@ const [ccBefore, ccAfter] = settings.chaloChambaText.includes('Chalo Chamba')
           {enquire.label && <p class="label">{enquire.label}</p>}
           <h2 class="display">{enquire.heading}</h2>
           {enquire.body.map((p) => <p class="muted">{p}</p>)}
+          {(settings.phone || settings.email) && (
+            <dl class="contact body-sm">
+              {settings.phone && <div><dt class="label">Phone</dt><dd><a href={`tel:+91${settings.phone.replace(/\D/g, '')}`}>{settings.phone}</a></dd></div>}
+              {settings.email && <div><dt class="label">Email</dt><dd><a href={`mailto:${settings.email}`}>{settings.email}</a></dd></div>}
+              <div><dt class="label">Address</dt><dd>{settings.address}</dd></div>
+            </dl>
+          )}
         </div>
         <EnquiryForm settings={settings} rooms={rooms} />
       </div>
@@ -241,6 +268,15 @@ const [ccBefore, ccAfter] = settings.chaloChambaText.includes('Chalo Chamba')
 
   .awards { list-style: none; margin: 0 0 var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); }
   .voice { margin: 0; display: grid; gap: var(--space-4); align-content: space-between; }
+
+  .places { margin-top: var(--space-12); display: grid; gap: var(--space-6); }
+  .areas { display: grid; gap: var(--space-8) var(--space-6); grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+  .area { display: grid; gap: var(--space-4); align-content: start; border-top: 1px solid var(--line-strong); padding-top: var(--space-3); }
+  .kind { font-weight: 600; margin: 0 0 var(--space-1); }
+  .area ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; color: var(--ink-muted); }
+
+  .contact { margin: var(--space-2) 0 0; display: grid; gap: var(--space-3); }
+  .contact dd { margin: 0; overflow-wrap: anywhere; }
 
   .enquire { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); }
   .enquire > .stack { align-content: start; }

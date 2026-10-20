@@ -35,6 +35,7 @@ export interface Settings {
   notOnMapUrl: string;
   mysticVillageUrl: string;
   instagramUrl?: string;
+  phone?: string;
   email?: string;
 }
 
@@ -106,4 +107,11 @@ export interface Award extends Listed {
   name: string;
   year: string;
   givenBy: string;
+}
+
+/** Places to visit near H2O, grouped by area and kind. */
+export interface PlaceGroup extends Listed {
+  area: string;
+  kind: string;
+  places: string[];
 }
