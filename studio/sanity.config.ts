@@ -23,7 +23,14 @@ export default defineConfig({
     }),
   ],
   schema: { types: schemaTypes },
+  // Free plan only: switch off features that show during the trial but are paid afterwards
+  tasks: { enabled: false },
+  releases: { enabled: false },
+  scheduledDrafts: { enabled: false },
+  scheduledPublishing: { enabled: false },
+  mediaLibrary: { enabled: false },
   document: {
+    comments: { enabled: false },
     // there is only ever one Home page and one Site settings
     newDocumentOptions: (prev) => prev.filter((t) => !['homePage', 'settings'].includes(t.templateId)),
     actions: (prev, { schemaType }) =>
